@@ -1,30 +1,15 @@
-from selenium import webdriver
+from config import driver
+from sites import sites
 
-sites = [
-    {
-        'name': 'stripe',
-        'url': 'https://stripe.com'},
-    {
-        'name': 'romansorin',
-        'url': 'https://romansorin.com'
-    },
-    {
-        'name': 'status-romansorin',
-        'url': 'https://status.romansorin.com'
-    }
-]
 
-geckodriver = './geckodriver'
-
-options = webdriver.FirefoxOptions()
-options.headless = True
-driver = webdriver.Firefox(executable_path=geckodriver, options=options)
+driver.implicitly_wait(90)
 
 for site in sites:
-    print(site['name'])
-    path = f"./screenshots/{site['name']}.png"
     driver.get(site['url'])
-    el = driver.find_element_by_tag_name('body')
-    el.screenshot(path)
+    page = driver.find_element_by_tag_name('body')
+
+    path = f"./screenshots/{site['name']}.png"
+    page.screenshot(path)
+
 
 driver.quit()
