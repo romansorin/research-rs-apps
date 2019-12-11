@@ -1,5 +1,5 @@
-from config import driver
-from sites import sites
+from .config import driver
+from .sites import sites
 
 
 for site in sites:
