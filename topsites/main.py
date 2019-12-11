@@ -1,6 +1,10 @@
 import getopt
 import logging
 import sys
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 
 from botocore.vendored import requests
 from future.standard_library import install_aliases
@@ -16,6 +20,7 @@ logging.basicConfig()
 log = logging.getLogger("ats")
 content_type = 'application/json'
 local_tz = "America/New_York"
+api_key = os.getenv('API_KEY')
 
 
 ###############################################################################
