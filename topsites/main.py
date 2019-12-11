@@ -1,3 +1,6 @@
+from urllib.parse import parse_qs, quote_plus
+from future.standard_library import install_aliases
+from botocore.vendored import requests
 import getopt
 import logging
 import sys
@@ -6,11 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-from botocore.vendored import requests
-from future.standard_library import install_aliases
-
 install_aliases()
-from urllib.parse import parse_qs, quote_plus
 
 # ************* REQUEST VALUES *************
 host = 'ats.stage.api.alexa.com'
@@ -37,7 +36,7 @@ Usage: main.py [options]
      -k, --key               API Key
      -c, --country           2-letter Country Code (ie. US, CN, BR)
      -o, --options           Service Options
-     -?, --help       Print this help message and exit.
+     -?, --help              Print this help message and exit.
 
   Examples:
      TopSites by country: main.py -k 98hu7.... --action TopSites --country=US --options "&Count=100&Output=json"
@@ -105,7 +104,8 @@ def sort_query_string(query_string):
     sorted_query_string = ""
     sep = ""
     for key in sorted(query_tuples.keys()):
-        sorted_query_string = sorted_query_string + sep + key + "=" + quote_plus(query_tuples[key][0])
+        sorted_query_string = sorted_query_string + sep + \
+            key + "=" + quote_plus(query_tuples[key][0])
         sep = "&"
     return sorted_query_string
 

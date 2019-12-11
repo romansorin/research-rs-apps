@@ -5,3 +5,4 @@ Repository for data collection tools used in my 2019-2020 research study. Home o
 ## Currently contains:
 
 - Full-page screenshot by list of URLs which will eventually be fed into an ML algorithm
+- Return top sites from AWS Alexa service by global or country ranking
