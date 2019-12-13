@@ -1,7 +1,8 @@
 sites = [
     {
         'name': 'stripe',
-        'url': 'https://stripe.com'},
+        'url': 'https://stripe.com'
+    },
     {
         'name': 'romansorin',
         'url': 'https://romansorin.com'
