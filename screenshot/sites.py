@@ -1,5 +1,5 @@
 sites = [
-    {"name": "lewagon", "url": "https://lewagon.com"},
+    {"name": "lewagon", "url": "https://www.lewagon.com"},
     {"name": "evercheck", "url": "https://evercheck.com"},
     {"name": "evolt", "url": "https://evolt.io"},
     {"name": "uscreen-leadzen", "url": "https://uscreen.tv/leadzen"},
