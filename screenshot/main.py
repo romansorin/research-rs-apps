@@ -28,7 +28,9 @@ for site in sites:
 
     filename = site["name"]
     path = f"./screenshots/{filename}.png"
-    driver.set_window_size(2560, driver.execute_script("return document.body.scrollHeight"))
+    driver.set_window_size(2560, driver.execute_script("return document.body.clientHeight"))
+    driver.execute_script("window.scrollTo(0,0)")
+    time.sleep(2)
     driver.find_element_by_tag_name("body").screenshot(path)
     print("Finished site")
 
