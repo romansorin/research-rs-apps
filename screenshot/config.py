@@ -1,10 +1,16 @@
 from selenium import webdriver
+import platform
 
 # Path to geckodriver (firefox) executable
-geckodriver = "./drivers/geckodriver"
+if platform.system() == 'Windows':
+    geckodriver = "./drivers/geckodriver.exe"
+else:
+    geckodriver = "./drivers/geckodriver"
 
-# Configure Firefox driver settings
+
+
 profile = webdriver.FirefoxProfile("./profile")
+
 options = webdriver.FirefoxOptions()
 options.headless = True
 options.add_argument("--width=2560")
