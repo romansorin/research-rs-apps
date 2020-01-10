@@ -1,5 +1,5 @@
 from sites import sites
-from config import driver
+from config import driver, VERBOSE
 import time
 from datetime import datetime
 
@@ -10,7 +10,7 @@ RESCROLL_PAUSE_TIME = 0.5
 def now():
     return datetime.now()
 
-def scroll():
+def scroll(last_height):
     while True:
     print("Scrolling to height")
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -24,9 +24,9 @@ def scroll():
         break
     last_height = new_height
 
-def rescroll():
+def rescroll(max_height):
     current_scroll = 0
-    while current_scroll < last_height:
+    while current_scroll < max_height:
         print(f"Rescrolling page to {current_scroll}")
         driver.execute_script(f"window.scrollTo(0, {current_scroll})")
         time.sleep(RESCROLL_PAUSE_TIME)
@@ -45,12 +45,16 @@ def screenshot():
     time_elapsed = datetime.now() - start_time
     print(f"Finished site in {time_elapsed}")
 
-def setup():
-    start_time = now()
-    print("Beginning site: ", site["name"])
+def setup(name, url):
+    time = now()
+
+    if VERBOSE: print(f"Beginning site: {name}")
+
     driver.set_window_size(2560, 1440)
-    driver.get(site["url"])
-    last_height = driver.execute_script("return document.body.scrollHeight")
+    driver.get(url)
+    height = driver.execute_script("return document.body.scrollHeight")
+
+    return (time, height)
 
 
 def destroy_driver():
@@ -59,7 +63,7 @@ def destroy_driver():
 
 if __name__ == "__main__":
     for site in sites:
-        setup()
+        start_time, last_height = setup(site["name"], site["url"])
         scroll()
         rescroll()
         screenshot()

@@ -1,13 +1,13 @@
 from selenium import webdriver
 import platform
 
+VERBOSE = True
+
 # Path to geckodriver (firefox) executable
 if platform.system() == 'Windows':
     geckodriver = "./drivers/geckodriver.exe"
 else:
     geckodriver = "./drivers/geckodriver"
-
-
 
 profile = webdriver.FirefoxProfile("./profile")
 
