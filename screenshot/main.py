@@ -2,14 +2,15 @@ from sites import sites
 from config import driver
 import time
 from datetime import datetime
-startTime = datetime.now()
 
 SCROLL_PAUSE_TIME = 5.0
 
 # Get scroll height
 
 for site in sites:
+    startTime = datetime.now()
     print("Beginning site: ", site["name"])
+    driver.set_window_size(2560, 1440)
     driver.get(site["url"])
     last_height = driver.execute_script("return document.body.scrollHeight")
 
@@ -33,8 +34,7 @@ for site in sites:
     driver.set_window_position(0, 0)
     print(driver.get_window_size())
     driver.find_element_by_tag_name("body").screenshot(path)
-    print("Finished site")
-
-print(datetime.now() - startTime)
+    time_elapsed = datetime.now() - startTime
+    print(f"Finished site in {time_elapsed}")
 
 driver.quit()
