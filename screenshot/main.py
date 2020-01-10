@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 startTime = datetime.now()
 
-SCROLL_PAUSE_TIME = 2.0
+SCROLL_PAUSE_TIME = 5.0
 
 # Get scroll height
 
@@ -26,10 +26,9 @@ for site in sites:
             break
         last_height = new_height
 
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
     filename = site["name"]
     path = f"./screenshots/{filename}.png"
+    driver.set_window_size(2560, driver.execute_script("return document.body.scrollHeight"))
     driver.find_element_by_tag_name("body").screenshot(path)
     print("Finished site")
 

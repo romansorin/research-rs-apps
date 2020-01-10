@@ -7,10 +7,12 @@ geckodriver = "./geckodriver"
 profile = webdriver.FirefoxProfile("./profile")
 options = webdriver.FirefoxOptions()
 options.headless = True
+options.add_argument("--width=2560")
+options.add_argument("--height=1440")
+
 
 driver = webdriver.Firefox(
     executable_path=geckodriver, options=options, firefox_profile=profile
 )
 
-# Set an implicit wait that applies for entire driver life; hacky way to handle some sites that have lots of AJAX resource requests
 driver.implicitly_wait(60)
