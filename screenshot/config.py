@@ -1,7 +1,7 @@
 from selenium import webdriver
 import platform
 
-VERBOSE = True
+LOGGING = True
 
 # Path to geckodriver (firefox) executable
 if platform.system() == 'Windows':
