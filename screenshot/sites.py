@@ -1,5 +1,5 @@
 sites = [
-    {"name": "airbnb", "url": "https://www.airbnb.com"},
+    # {"name": "airbnb", "url": "https://www.airbnb.com"},
     # {"name": "lewagon", "url": "https://www.lewagon.com"},
     # {"name": "evercheck", "url": "https://evercheck.com"},
     # {"name": "evolt", "url": "https://evolt.io"},
@@ -9,9 +9,9 @@ sites = [
     # {"name": "supercast", "url": "https://supercast.com"},
     # {"name": "upcut", "url": "https://upcutstudio.com"},
     # {"name": "liramail", "url": "https://liramail.com"},
-    {"name": "webflow", "url": "https://webflow.com"},
+    # {"name": "webflow", "url": "https://webflow.com"},
     # {"name": "envoyer", "url": "https://envoyer.io"},
-    # {"name": "sizzy", "url": "https://sizzy.co"},
+    {"name": "sizzy", "url": "https://sizzy.co"},
     # {"name": "forge", "url": "https://forge.laravel.com"},
     # {"name": "vapor", "url": "https://vapor.laravel.com"},
     # {"name": "nova", "url": "https://nova.laravel.com"},

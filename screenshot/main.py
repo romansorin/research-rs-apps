@@ -3,7 +3,7 @@ from config import driver
 import time
 from datetime import datetime
 
-SCROLL_PAUSE_TIME = 5.0
+SCROLL_PAUSE_TIME = 0.5
 
 # Get scroll height
 
@@ -26,6 +26,13 @@ for site in sites:
         if new_height == last_height:
             break
         last_height = new_height
+
+    current_scroll = 0
+    while current_scroll < last_height:
+        print(f"Rescrolling page to {current_scroll}")
+        driver.execute_script(f"window.scrollTo(0, {current_scroll})")
+        time.sleep(SCROLL_PAUSE_TIME)
+        current_scroll += 200
 
     filename = site["name"]
     path = f"./screenshots/{filename}.png"
