@@ -1,12 +1,15 @@
 from sites import sites
-from config import driver, LOGGING
+from config import start_driver, LOGGING
 import time
 from datetime import datetime
 
 SCROLL_PAUSE_TIME = 5
+MAX_SCROLL_HEIGHT = 100000
 RESCROLL_PAUSE_TIME = 0.5
 RESCROLL_INCREMENTS = 200
 
+# TODO: Flag sites that have a scroll height of over 10000 or 15000 (arbitrary)
+# TODO: On site screenshot, record time elapsed, scroll height, flag status, screenshot path, sitename, url, etc.
 
 def now():
     return datetime.now()
@@ -21,8 +24,7 @@ def get_scroll_height():
 
 
 def set_window_height(height=1440):
-    driver.set_window_size(2560, height)
-    pass
+    return driver.set_window_size(2560, height)
 
 
 def get_window_height():
@@ -30,8 +32,7 @@ def get_window_height():
 
 
 def scroll_to(height):
-    driver.execute_script(f"window.scrollTo(0, {height})")
-    pass
+    return driver.execute_script(f"window.scrollTo(0, {height})")
 
 
 def scroll(height):
@@ -42,6 +43,8 @@ def scroll(height):
 
         new_height = get_scroll_height()
         if new_height == height:
+            break
+        elif new_height >= MAX_SCROLL_HEIGHT:
             break
         height = new_height
     return height
@@ -65,9 +68,12 @@ def screenshot(filename, height):
 
     scroll_to("document.body.scrollHeight")
     path = f"./screenshots/{filename}.png"
-    driver.find_element_by_tag_name("body").screenshot(path)
-
-    if LOGGING: print(f"Finished site in {time_elapsed(start_time, datetime.now())}")
+    try:
+        driver.find_element_by_tag_name("body").screenshot(path)
+    except:
+        print("Something went wrong when trying to take the screenshot.")
+    finally:
+        if LOGGING: print(f"Finished site {filename} in {time_elapsed(start_time, datetime.now())}")
 
 
 def setup(name, url):
@@ -80,9 +86,12 @@ def setup(name, url):
 
 
 if __name__ == "__main__":
+    driver = start_driver()
+
     for site in sites:
         start_time, last_height = setup(site["name"], site["url"])
         last_height = scroll(last_height)
         rescroll(last_height)
         screenshot(site["name"], last_height)
+
     driver.quit()

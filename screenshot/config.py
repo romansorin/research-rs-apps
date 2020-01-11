@@ -16,7 +16,12 @@ options.headless = True
 options.add_argument("--width=2560")
 options.add_argument("--height=1440")
 
-driver = webdriver.Firefox(
-    executable_path=geckodriver, options=options, firefox_profile=profile
-)
-driver.implicitly_wait(60)
+
+def start_driver():
+    driver = webdriver.Firefox(
+        executable_path=geckodriver, options=options, firefox_profile=profile
+    )
+    driver.implicitly_wait(60)
+    return driver
+
+
