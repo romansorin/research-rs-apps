@@ -10,6 +10,8 @@ RESCROLL_INCREMENTS = 200
 
 # TODO: Flag sites that have a scroll height of over 10000 or 15000 (arbitrary)
 # TODO: On site screenshot, record time elapsed, scroll height, flag status, screenshot path, sitename, url, etc.
+# TODO: Possibly check amt of white space in screenshot?
+# TODO: Possibly switch to regular screenshot method instead of height extension if scroll height > 50000 or flag?
 
 def now():
     return datetime.now()
