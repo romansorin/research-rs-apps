@@ -21,7 +21,8 @@ def get_scroll_height():
 
 
 def set_window_height(height=1440):
-    return driver.set_window_size(2560, height)
+    driver.set_window_size(2560, height)
+    pass
 
 
 def get_window_height():
@@ -29,7 +30,8 @@ def get_window_height():
 
 
 def scroll_to(height):
-    driver.execute_script(f"window.scrollTo(0, {height}")
+    driver.execute_script(f"window.scrollTo(0, {height})")
+    pass
 
 
 def scroll(height):
