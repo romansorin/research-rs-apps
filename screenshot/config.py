@@ -10,6 +10,7 @@ else:
     geckodriver = "./drivers/geckodriver"
 
 profile = webdriver.FirefoxProfile("./profile")
+log = './drivers/geckodriver.log'
 
 options = webdriver.FirefoxOptions()
 options.headless = True
@@ -19,7 +20,7 @@ options.add_argument("--height=1440")
 
 def start_driver():
     driver = webdriver.Firefox(
-        executable_path=geckodriver, options=options, firefox_profile=profile
+        executable_path=geckodriver, options=options, firefox_profile=profile, log_path=log
     )
     driver.implicitly_wait(60)
     return driver
