@@ -1,3 +1,8 @@
+"""
+Example provided courtesy of Keras documentation.
+This example can be found at [https://keras.io/examples/cifar10_cnn/](https://keras.io/examples/cifar10_cnn/)
+"""
+
 from __future__ import print_function
 import keras
 from keras.datasets import cifar10
