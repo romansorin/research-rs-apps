@@ -1,5 +1,6 @@
 from sqlalchemy import (create_engine, Column, Enum, ForeignKey, Boolean, Integer, String)
 from sqlalchemy.orm.session import sessionmaker
+from sqlalchemy.orm import relationship
 import os
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -18,20 +19,31 @@ def migrate():
     print("Migrated tables")
 
 
+def drop():
+    Base.metadata.drop_all(engine)
+    print("Dropped tables")
+
 class Site(Base):
     __tablename__ = 'sites'
+
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False, unique=True)
-    host = Column(String, nullable=False, unique=True)
+    name = Column(String)
+    host = Column(String)
+    screenshot = relationship('Screenshot', backref='sites', passive_deletes=True)
 
 
 # Models
 class Screenshot(Base):
     __tablename__ = 'screenshots'
+
     id = Column(Integer, primary_key=True)
-    site_id = Column(Integer, ForeignKey(Site.id), primary_key=True,)
-    path = Column(String, nullable=False, unique=True)
-    type = Column(Enum, nullable=False)
+    site_id = Column(Integer, ForeignKey('sites.id', ondelete='cascade'))
+    site = relationship('Site', backref='screenshots', passive_deletes=True)
+    # path = Column(String)
+    # type = Column(Enum)
+
+
 
 session = connect()
+drop()
 migrate()
