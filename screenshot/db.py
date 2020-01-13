@@ -23,6 +23,8 @@ def drop():
     Base.metadata.drop_all(engine)
     print("Dropped tables")
 
+
+# TODO: Get relationships working
 class Site(Base):
     __tablename__ = 'sites'
 
