@@ -47,5 +47,9 @@ class Screenshot(Base):
 
 # session.add(Site())
 # session.add(Screenshot(site_id=1))
-session.query(Site).filter(Site.id == 1).delete(synchronize_session=False)
+# session.add(Screenshot(site_id=1))
+
+# session.add(Screenshot(site_id=1))
+site = session.query(Site).filter(Site.id == 1).first()
+session.delete(site)
 session.commit()
