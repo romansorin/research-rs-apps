@@ -1,6 +1,6 @@
-from sqlalchemy import (create_engine, Column, Enum, ForeignKey, Boolean, Integer, String)
+from sqlalchemy import (create_engine, Column, Enum,  ForeignKey, Boolean, Integer, String)
 from sqlalchemy.orm.session import sessionmaker
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 import os
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -8,11 +8,8 @@ DB = os.path.join(os.path.dirname(__file__), 'screenshots.sqlite3')
 conn_string = f'sqlite:///{DB}'
 engine = create_engine(conn_string)
 Base = declarative_base()
-
-
-def connect():
-    return sessionmaker(bind=engine)
-
+Session = sessionmaker(bind=engine)
+session = Session()
 
 def migrate():
     Base.metadata.create_all(engine)
@@ -31,7 +28,7 @@ class Site(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     host = Column(String)
-    screenshot = relationship('Screenshot', backref='sites', passive_deletes=True)
+    children = relationship('Screenshot', backref='site', cascade='all,delete')
 
 
 # Models
@@ -39,12 +36,16 @@ class Screenshot(Base):
     __tablename__ = 'screenshots'
 
     id = Column(Integer, primary_key=True)
-    site_id = Column(Integer, ForeignKey('sites.id', ondelete='cascade'))
-    site = relationship('Site', backref='screenshots', passive_deletes=True)
+    site_id = Column(Integer, ForeignKey('sites.id', ondelete='CASCADE'))
+    parent = relationship(Site, backref=backref('screenshot', cascade='all,delete', passive_deletes=True))
     # path = Column(String)
     # type = Column(Enum)
 
 
-session = connect()
-drop()
-migrate()
+# drop()
+# migrate()
+
+# session.add(Site())
+# session.add(Screenshot(site_id=1))
+session.query(Site).filter(Site.id == 1).delete(synchronize_session=False)
+session.commit()
