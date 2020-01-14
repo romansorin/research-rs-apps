@@ -1,0 +1,6 @@
+[submodule "aws-topsites"]
+	path = aws-topsites
+	url = git@github.com:romansorin/research-aws-topsites
+[submodule "keras"]
+	path = keras
+	url = git@github.com:romansorin/research-keras
