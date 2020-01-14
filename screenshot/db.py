@@ -48,17 +48,20 @@ class Screenshot(Base):
 
 # drop()
 # migrate()
-
-
-session.add(Site(name='romansorin', host='https://romansorin.com'))
-session.add(Screenshot(site_id=1, path='test', type=ScreenshotEnum['RGB']))
-# session.add(Site())
-# session.add(Screenshot(site_id=1))
-# session.add(Screenshot(site_id=1))
+#
+#
+# session.add(Site(name='romansorin', host='https://romansorin.com'))
+# session.add(Site(name='2', host='https://2.com'))
+# session.add(Screenshot(site_id=1, path='test', type=ScreenshotEnum['RGB']))
+# session.add(Screenshot(site_id=1, path='test', type=ScreenshotEnum['RGB']))
+#
+# session.add(Screenshot(site_id=2, path='s', type=ScreenshotEnum['GREYSCALE']))
+# session.add(Screenshot(site_id=2, path='a', type=ScreenshotEnum['GREYSCALE']))
+# session.add(Screenshot(site_id=2, path='s', type=ScreenshotEnum['GREYSCALE']))
 # print(ScreenshotEnum.GREYSCALE)
 # session.add(Screenshot(site_id=1))
-# site = session.query(Site).filter(Site.id == 1).first()
-# session.delete(site)
+site = session.query(Site).filter(Site.id == 1).first()
+session.delete(site)
 session.commit()
 
 # TODO: REMIGRATE
