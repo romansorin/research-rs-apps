@@ -2,6 +2,7 @@ from sqlalchemy import (create_engine, Column, Enum,  ForeignKey, Boolean, Integ
 from sqlalchemy.orm.session import sessionmaker
 from sqlalchemy.orm import relationship, backref
 import os
+import enum
 from sqlalchemy.ext.declarative import declarative_base
 
 DB = os.path.join(os.path.dirname(__file__), 'screenshots.sqlite3')
@@ -21,7 +22,10 @@ def drop():
     print("Dropped tables")
 
 
-# TODO: Get relationships working
+class ScreenshotEnum(enum.Enum):
+    RGB = "RGB"
+    GREYSCALE = "GREYSCALE"
+
 class Site(Base):
     __tablename__ = 'sites'
 
@@ -37,19 +41,22 @@ class Screenshot(Base):
 
     id = Column(Integer, primary_key=True)
     site_id = Column(Integer, ForeignKey('sites.id', ondelete='CASCADE'))
+    path = Column(String)
+    type = Column(Enum)
     parent = relationship(Site, backref=backref('screenshot', cascade='all,delete', passive_deletes=True))
-    # path = Column(String)
-    # type = Column(Enum)
 
 
 # drop()
 # migrate()
 
+
+session.add(Site(name='romansorin', host='https://romansorin.com'))
+session.add(Screenshot(site_id=1, path='test', type=f'{ScreenshotEnum.RGB.value}', ))
 # session.add(Site())
 # session.add(Screenshot(site_id=1))
 # session.add(Screenshot(site_id=1))
-
+# print(ScreenshotEnum.GREYSCALE)
 # session.add(Screenshot(site_id=1))
-site = session.query(Site).filter(Site.id == 1).first()
-session.delete(site)
-session.commit()
+# site = session.query(Site).filter(Site.id == 1).first()
+# session.delete(site)
+# session.commit()
