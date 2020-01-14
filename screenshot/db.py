@@ -42,7 +42,7 @@ class Screenshot(Base):
     id = Column(Integer, primary_key=True)
     site_id = Column(Integer, ForeignKey('sites.id', ondelete='CASCADE'))
     path = Column(String)
-    type = Column(Enum)
+    type = Column(Enum(ScreenshotEnum))
     parent = relationship(Site, backref=backref('screenshot', cascade='all,delete', passive_deletes=True))
 
 
@@ -51,7 +51,7 @@ class Screenshot(Base):
 
 
 session.add(Site(name='romansorin', host='https://romansorin.com'))
-session.add(Screenshot(site_id=1, path='test', type=f'{ScreenshotEnum.RGB.value}', ))
+session.add(Screenshot(site_id=1, path='test', type=ScreenshotEnum['RGB']))
 # session.add(Site())
 # session.add(Screenshot(site_id=1))
 # session.add(Screenshot(site_id=1))
@@ -59,4 +59,6 @@ session.add(Screenshot(site_id=1, path='test', type=f'{ScreenshotEnum.RGB.value}
 # session.add(Screenshot(site_id=1))
 # site = session.query(Site).filter(Site.id == 1).first()
 # session.delete(site)
-# session.commit()
+session.commit()
+
+# TODO: REMIGRATE
