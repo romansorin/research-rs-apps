@@ -4,3 +4,6 @@
 [submodule "keras"]
 	path = keras
 	url = git@github.com:romansorin/research-keras
+[submodule "screenshot"]
+	path = screenshot
+	url = git@github.com:romansorin/research-screenshot
