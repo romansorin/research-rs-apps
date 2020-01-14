@@ -45,7 +45,6 @@ class Screenshot(Base):
     # type = Column(Enum)
 
 
-
 session = connect()
 drop()
 migrate()
